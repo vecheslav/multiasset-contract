@@ -1,0 +1,21 @@
+[package]
+name = "multiasset_sdk"
+version = "0.0.1"
+edition = "2021"
+authors = ["dmitriy <dmitriy.dolinin.v@gmail.com>"]
+license = "Apache-2.0"
+description = "SRC-20 MultiAsset Rust SDK"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.86"
+fuels = { version = "0.65.1", features = ["fuel-core-lib"] }
+rand = "0.8.5"
+sha2 = "0.10.8"
+tokio = { version = "1.39.2", features = ["rt", "macros"] }
+
+[[test]]
+harness = true
+name = "integration_tests"
+path = "tests/harness.rs"
