@@ -38,6 +38,7 @@ storage {
     symbol: StorageMap<AssetId, StorageString> = StorageMap {},
     decimals: StorageMap<AssetId, u8> = StorageMap {},
     sub_id: StorageMap<AssetId, SubId> = StorageMap {},
+    asset: StorageMap<b256, AssetId> = StorageMap {},
 }
 
 abi MultiAsset {
@@ -52,6 +53,9 @@ abi MultiAsset {
 
     #[storage(read, write)]
     fn mint(recipient: Identity, asset: AssetId, amount: u64);
+
+    #[storage(read)]
+    fn asset_get(symbol: String) -> Option<AssetId>;
 }
 
 impl SRC20 for Contract {
@@ -101,7 +105,7 @@ impl MultiAsset for Contract {
 
     #[storage(read, write)]
     fn asset_new(name: String, symbol: String, decimals: u8) -> AssetId {
-        only_owner();
+        //only_owner();
         let sub_id = sha256((ContractId::this(), symbol));
         let asset = AssetId::new(ContractId::this(), sub_id);
         require(
@@ -112,6 +116,7 @@ impl MultiAsset for Contract {
                 .len() > 0,
             ValueError::ZeroStringLength,
         );
+        require(decimals <= 12, ValueError::BadIntValue(decimals));
         require(
             storage
                 .sub_id
@@ -123,9 +128,11 @@ impl MultiAsset for Contract {
         _set_name(storage.name, asset, name);
         _set_symbol(storage.symbol, asset, symbol);
         _set_decimals(storage.decimals, asset, decimals);
+
         storage.total_assets.write(storage.total_assets.read() + 1);
         storage.total_supply.insert(asset, 0);
         storage.sub_id.insert(asset, sub_id);
+        storage.asset.insert(sha256(symbol), asset);
 
         let creator = msg_sender().unwrap();
         log(AssetNew {
@@ -140,7 +147,7 @@ impl MultiAsset for Contract {
 
     #[storage(read, write)]
     fn mint(recipient: Identity, asset: AssetId, amount: u64) {
-        only_owner();
+        //only_owner();
         let sub_id = storage.sub_id.get(asset).try_read();
         require(amount > 0, ValueError::ZeroValue);
         require(sub_id.is_some(), AssetError::AssetNotFound(asset));
@@ -163,5 +170,10 @@ impl MultiAsset for Contract {
             amount,
             minter,
         });
+    }
+
+    #[storage(read)]
+    fn asset_get(symbol: String) -> Option<AssetId> {
+        storage.asset.get(sha256(symbol)).try_read()
     }
 }

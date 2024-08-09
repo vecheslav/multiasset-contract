@@ -1,4 +1,4 @@
-use fuels::types::{AssetId, Identity};
+use fuels::types::{bech32::Bech32ContractId, AssetId, Bytes32, ContractId, Identity};
 use fuels::{
     prelude::{
         abigen, Contract, LoadConfiguration, StorageConfiguration, TxPolicies,
@@ -54,10 +54,24 @@ impl MultiAssetContract {
         Ok(_self)
     }
 
+    pub async fn new(contract_id: ContractId, wallet: WalletUnlocked) -> Self {
+        Self {
+            instance: MultiAsset::new(contract_id, wallet),
+        }
+    }
+
     pub async fn with_account(&self, account: &WalletUnlocked) -> anyhow::Result<Self> {
         Ok(Self {
             instance: self.instance.clone().with_account(account.clone()),
         })
+    }
+
+    pub fn id(&self) -> Bytes32 {
+        self.instance.contract_id().hash
+    }
+
+    pub fn contract_id(&self) -> &Bech32ContractId {
+        self.instance.contract_id()
     }
 
     async fn initialize_ownership(&self, recipient: Identity) -> anyhow::Result<CallResponse<()>> {
@@ -136,6 +150,15 @@ impl MultiAssetContract {
             .instance
             .methods()
             .decimals(asset.clone())
+            .call()
+            .await?)
+    }
+
+    pub async fn asset_get(&self, name: &String) -> anyhow::Result<CallResponse<Option<AssetId>>> {
+        Ok(self
+            .instance
+            .methods()
+            .asset_get(name.clone())
             .call()
             .await?)
     }

@@ -8,4 +8,5 @@ pub enum AssetError {
 pub enum ValueError {
     ZeroStringLength: (),
     ZeroValue: (),
+    BadIntValue: u8,
 }

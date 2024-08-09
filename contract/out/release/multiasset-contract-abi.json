@@ -125,6 +125,11 @@
           "name": "ZeroValue",
           "type": 0,
           "typeArguments": null
+        },
+        {
+          "name": "BadIntValue",
+          "type": 22,
+          "typeArguments": null
         }
       ],
       "typeParameters": null
@@ -478,6 +483,35 @@
     {
       "inputs": [
         {
+          "name": "symbol",
+          "type": 20,
+          "typeArguments": null
+        }
+      ],
+      "name": "asset_get",
+      "output": {
+        "name": "",
+        "type": 6,
+        "typeArguments": [
+          {
+            "name": "",
+            "type": 12,
+            "typeArguments": null
+          }
+        ]
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [
+        {
           "name": "name",
           "type": 20,
           "typeArguments": null
@@ -594,14 +628,6 @@
   ],
   "loggedTypes": [
     {
-      "logId": "4571204900286667806",
-      "loggedType": {
-        "name": "",
-        "type": 2,
-        "typeArguments": []
-      }
-    },
-    {
       "logId": "4038555509566971562",
       "loggedType": {
         "name": "",
@@ -646,6 +672,14 @@
       "loggedType": {
         "name": "",
         "type": 13,
+        "typeArguments": []
+      }
+    },
+    {
+      "logId": "4571204900286667806",
+      "loggedType": {
+        "name": "",
+        "type": 2,
         "typeArguments": []
       }
     },
