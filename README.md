@@ -1,6 +1,91 @@
 # MultiAsset Contract
 SRC20 compatible MultiAsset contract
 
+# MultiAsset Rust SDK - MultiAssetContract method description
+
+# Transactional methods
+
+## Deploy a new contract
+
+pub async fn deploy(wallet: &WalletUnlocked) -> anyhow::Result<Self>
+
+Returns MultiAssetContract object.
+
+
+## Create a new asset
+
+pub async fn asset_new(
+        &self,
+        name: &String,
+        symbol: &String,
+        decimals: u8,
+    ) -> anyhow::Result<CallResponse<AssetId>>
+
+Creates a new asset with `name`, `symbol` and `decimals`.
+Returns AssetId.
+
+
+## Mint asset amount
+
+pub async fn mint(
+        &self,
+        recipient: Identity,
+        asset: &AssetId,
+        amount: u64,
+    ) -> anyhow::Result<CallResponse<()>> {
+        Ok(self
+            .instance
+            .methods()
+            .mint(recipient, *asset, amount)
+            .with_variable_output_policy(VariableOutputPolicy::Exactly(1))
+            .call()
+            .await?)
+    }
+
+Mints `amount` of `asset` to `recipient`.
+
+
+# Read methods
+
+## Total assets
+
+pub async fn total_assets(&self) -> anyhow::Result<CallResponse<u64>>
+
+Returns the number of assets deployed.
+
+## Total supply
+
+pub async fn total_supply(&self, asset: &AssetId) -> anyhow::Result<CallResponse<Option<u64>>>
+
+Returns a total minted amount of given `asset`
+
+## Name
+
+pub async fn name(&self, asset: &AssetId) -> anyhow::Result<CallResponse<Option<String>>>
+
+Returns a `name` of given `asset`
+
+## Decimals
+
+pub async fn decimals(&self, asset: &AssetId) -> anyhow::Result<CallResponse<Option<u8>>>
+
+Returns a `decimals` of given `asset`
+
+## Get asset
+
+pub async fn asset_get(&self, name: &String) -> anyhow::Result<CallResponse<Option<AssetId>>>
+
+Returns AssetId by `name`
+
+
+## Name
+
+pub async fn name(&self, asset: &AssetId) -> anyhow::Result<CallResponse<Option<u8>>>
+
+Returns a `name` of given `asset`
+
+
+
 
 # CLI Core functions
 
