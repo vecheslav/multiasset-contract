@@ -118,6 +118,19 @@ A new asset created with id: 0x08f52ffa220c075aa46da0f31a76ed40fd1f7019f317d3295
 Transaction cost: 5232
 Creator: 0xf47e0ef744ac8c993550e03d17f1c4844494553a12cac11ab8c568c8999fdbbf
 
+./target/release/multiasset_sdk core asset-new \
+    --name BTC \
+    --symbol BTC \
+    --decimals 8 \
+    --contract-id 0xe7d84947aa22d83e4e570184db554ccef978a64d0acd12b1efc10bfcc357080f \
+    --rpc "testnet.fuel.network"
+
+Sample output:
+
+A new asset created with id: 0x0058d19a8c101d8634ac1f16a6b55f31baed0ae1a9bcf2273fcf50bb057a5b45
+Transaction cost: 5220
+Creator: 0xf47e0ef744ac8c993550e03d17f1c4844494553a12cac11ab8c568c8999fdbbf
+
 ## Mint
 
 ./target/release/multiasset_sdk core mint \
