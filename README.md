@@ -99,8 +99,8 @@ Run from project root folder
 
 Sample output:
 
-MultiAsset contract deployed to: 0xe7d84947aa22d83e4e570184db554ccef978a64d0acd12b1efc10bfcc357080f
-Deployment cost: 23679
+MultiAsset contract deployed to: 0xdc527289bdef8ec452f350c9b2d36d464a9ebed88eb389615e512a78e26e3509
+Deployment cost: 24112
 Deployer: 0xf47e0ef744ac8c993550e03d17f1c4844494553a12cac11ab8c568c8999fdbbf
 
 ## AssetNew
@@ -109,26 +109,26 @@ Deployer: 0xf47e0ef744ac8c993550e03d17f1c4844494553a12cac11ab8c568c8999fdbbf
     --name USDC \
     --symbol USDC \
     --decimals 6 \
-    --contract-id 0xe7d84947aa22d83e4e570184db554ccef978a64d0acd12b1efc10bfcc357080f \
+    --contract-id 0xdc527289bdef8ec452f350c9b2d36d464a9ebed88eb389615e512a78e26e3509 \
     --rpc "testnet.fuel.network"
 
 Sample output:
 
-A new asset created with id: 0x08f52ffa220c075aa46da0f31a76ed40fd1f7019f317d3295a8b5880e63ab94e
-Transaction cost: 5232
+A new asset created with id: 0x336b7c06352a4b736ff6f688ba6885788b3df16e136e95310ade51aa32dc6f05
+Transaction cost: 5216
 Creator: 0xf47e0ef744ac8c993550e03d17f1c4844494553a12cac11ab8c568c8999fdbbf
 
 ./target/release/multiasset_sdk core asset-new \
     --name BTC \
     --symbol BTC \
     --decimals 8 \
-    --contract-id 0xe7d84947aa22d83e4e570184db554ccef978a64d0acd12b1efc10bfcc357080f \
+    --contract-id 0xdc527289bdef8ec452f350c9b2d36d464a9ebed88eb389615e512a78e26e3509 \
     --rpc "testnet.fuel.network"
 
 Sample output:
 
-A new asset created with id: 0x0058d19a8c101d8634ac1f16a6b55f31baed0ae1a9bcf2273fcf50bb057a5b45
-Transaction cost: 5220
+A new asset created with id: 0x38e4ca985b22625fff93205e997bfc5cc8453a953da638ad297ca60a9f2600bc
+Transaction cost: 5210
 Creator: 0xf47e0ef744ac8c993550e03d17f1c4844494553a12cac11ab8c568c8999fdbbf
 
 ## Mint
@@ -138,7 +138,7 @@ Creator: 0xf47e0ef744ac8c993550e03d17f1c4844494553a12cac11ab8c568c8999fdbbf
     --recipient-type address \
     --asset 0x08f52ffa220c075aa46da0f31a76ed40fd1f7019f317d3295a8b5880e63ab94e \
     --amount 2000000 \
-    --contract-id 0xe7d84947aa22d83e4e570184db554ccef978a64d0acd12b1efc10bfcc357080f \
+    --contract-id 0xdc527289bdef8ec452f350c9b2d36d464a9ebed88eb389615e512a78e26e3509 \
     --rpc "testnet.fuel.network"
 
 Sample output:
@@ -154,19 +154,19 @@ Minter: 0xf47e0ef744ac8c993550e03d17f1c4844494553a12cac11ab8c568c8999fdbbf
 
 ./target/release/multiasset_sdk info name \
     --asset 0x08f52ffa220c075aa46da0f31a76ed40fd1f7019f317d3295a8b5880e63ab94e \
-    --contract-id 0xe7d84947aa22d83e4e570184db554ccef978a64d0acd12b1efc10bfcc357080f \
+    --contract-id 0xdc527289bdef8ec452f350c9b2d36d464a9ebed88eb389615e512a78e26e3509 \
     --rpc "testnet.fuel.network"
 
 ## Symbol
 
 ./target/release/multiasset_sdk info symbol \
     --asset 0x08f52ffa220c075aa46da0f31a76ed40fd1f7019f317d3295a8b5880e63ab94e \
-    --contract-id 0xe7d84947aa22d83e4e570184db554ccef978a64d0acd12b1efc10bfcc357080f \
+    --contract-id 0xdc527289bdef8ec452f350c9b2d36d464a9ebed88eb389615e512a78e26e3509 \
     --rpc "testnet.fuel.network"
 
 ## Decimals
 
 ./target/release/multiasset_sdk info decimals \
     --asset 0x08f52ffa220c075aa46da0f31a76ed40fd1f7019f317d3295a8b5880e63ab94e \
-    --contract-id 0xe7d84947aa22d83e4e570184db554ccef978a64d0acd12b1efc10bfcc357080f \
+    --contract-id 0xdc527289bdef8ec452f350c9b2d36d464a9ebed88eb389615e512a78e26e3509 \
     --rpc "testnet.fuel.network"
