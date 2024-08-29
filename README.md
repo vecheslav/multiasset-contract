@@ -136,14 +136,14 @@ Creator: 0xf47e0ef744ac8c993550e03d17f1c4844494553a12cac11ab8c568c8999fdbbf
 ./target/release/multiasset_sdk core mint \
     --recipient-id 0xf47e0ef744ac8c993550e03d17f1c4844494553a12cac11ab8c568c8999fdbbf \
     --recipient-type address \
-    --asset 0x08f52ffa220c075aa46da0f31a76ed40fd1f7019f317d3295a8b5880e63ab94e \
-    --amount 2000000 \
+    --asset 0x336b7c06352a4b736ff6f688ba6885788b3df16e136e95310ade51aa32dc6f05 \
+    --amount 200000000 \
     --contract-id 0xdc527289bdef8ec452f350c9b2d36d464a9ebed88eb389615e512a78e26e3509 \
     --rpc "testnet.fuel.network"
 
 Sample output:
 
-An asset 0x08f52ffa220c075aa46da0f31a76ed40fd1f7019f317d3295a8b5880e63ab94e amount minted 2000000 to: 0xf47e0ef744ac8c993550e03d17f1c4844494553a12cac11ab8c568c8999fdbbf
+An asset 0x336b7c06352a4b736ff6f688ba6885788b3df16e136e95310ade51aa32dc6f05 amount minted 2000000 to: 0xf47e0ef744ac8c993550e03d17f1c4844494553a12cac11ab8c568c8999fdbbf
 Transaction cost: 2164
 Minter: 0xf47e0ef744ac8c993550e03d17f1c4844494553a12cac11ab8c568c8999fdbbf
 
@@ -153,20 +153,20 @@ Minter: 0xf47e0ef744ac8c993550e03d17f1c4844494553a12cac11ab8c568c8999fdbbf
 ## Name
 
 ./target/release/multiasset_sdk info name \
-    --asset 0x08f52ffa220c075aa46da0f31a76ed40fd1f7019f317d3295a8b5880e63ab94e \
+    --asset 0x336b7c06352a4b736ff6f688ba6885788b3df16e136e95310ade51aa32dc6f05 \
     --contract-id 0xdc527289bdef8ec452f350c9b2d36d464a9ebed88eb389615e512a78e26e3509 \
     --rpc "testnet.fuel.network"
 
 ## Symbol
 
 ./target/release/multiasset_sdk info symbol \
-    --asset 0x08f52ffa220c075aa46da0f31a76ed40fd1f7019f317d3295a8b5880e63ab94e \
+    --asset 0x336b7c06352a4b736ff6f688ba6885788b3df16e136e95310ade51aa32dc6f05 \
     --contract-id 0xdc527289bdef8ec452f350c9b2d36d464a9ebed88eb389615e512a78e26e3509 \
     --rpc "testnet.fuel.network"
 
 ## Decimals
 
 ./target/release/multiasset_sdk info decimals \
-    --asset 0x08f52ffa220c075aa46da0f31a76ed40fd1f7019f317d3295a8b5880e63ab94e \
+    --asset 0x336b7c06352a4b736ff6f688ba6885788b3df16e136e95310ade51aa32dc6f05 \
     --contract-id 0xdc527289bdef8ec452f350c9b2d36d464a9ebed88eb389615e512a78e26e3509 \
     --rpc "testnet.fuel.network"
