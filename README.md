@@ -1,138 +1,116 @@
 # MultiAsset Contract
-SRC20 compatible MultiAsset contract
 
-# MultiAsset Rust SDK - MultiAssetContract method description
+MultiAsset is a temporary asset contract developed by the Composability Labs team for smoother testing of the Spark Orderbook on the testnet. It allows users to mint a specified amount of tokens. Please note, the asset standard for the mainnet is still under consideration.
 
-# Transactional methods
+## Features
 
-## Deploy a new contract
+- **SRC20 Compatible**: The MultiAsset contract is designed to be SRC20-compatible, enabling flexible token minting.
+- **Rust SDK**: Provides an SDK with transactional and informational methods for interacting with the MultiAsset contract.
 
+---
+
+## MultiAsset Rust SDK
+
+### Transactional Methods
+
+#### Deploy a New Contract
+```rust
 pub async fn deploy(wallet: &WalletUnlocked) -> anyhow::Result<Self>
+```
+Deploys a new MultiAsset contract and returns a `MultiAssetContract` object.
 
-Returns MultiAssetContract object.
-
-
-## Create a new asset
-
+#### Create a New Asset
+```rust
 pub async fn asset_new(
-        &self,
-        name: &String,
-        symbol: &String,
-        decimals: u8,
-    ) -> anyhow::Result<CallResponse<AssetId>>
+    &self,
+    name: &String,
+    symbol: &String,
+    decimals: u8,
+) -> anyhow::Result<CallResponse<AssetId>>
+```
+Creates a new asset with `name`, `symbol`, and `decimals`. Returns the `AssetId`.
 
-Creates a new asset with `name`, `symbol` and `decimals`.
-Returns AssetId.
-
-
-## Mint asset amount
-
+#### Mint Asset Amount
+```rust
 pub async fn mint(
-        &self,
-        recipient: Identity,
-        asset: &AssetId,
-        amount: u64,
-    ) -> anyhow::Result<CallResponse<()>> {
-        Ok(self
-            .instance
-            .methods()
-            .mint(recipient, *asset, amount)
-            .with_variable_output_policy(VariableOutputPolicy::Exactly(1))
-            .call()
-            .await?)
-    }
+    &self,
+    recipient: Identity,
+    asset: &AssetId,
+    amount: u64,
+) -> anyhow::Result<CallResponse<()>> {
+```
+Mints the specified `amount` of `asset` to the `recipient`.
 
-Mints `amount` of `asset` to `recipient`.
+---
 
+### Read Methods
 
-# Read methods
-
-## Total assets
-
+#### Total Assets
+```rust
 pub async fn total_assets(&self) -> anyhow::Result<CallResponse<u64>>
+```
+Returns the total number of assets deployed.
 
-Returns the number of assets deployed.
-
-## Total supply
-
+#### Total Supply
+```rust
 pub async fn total_supply(&self, asset: &AssetId) -> anyhow::Result<CallResponse<Option<u64>>>
+```
+Returns the total minted supply of the specified `asset`.
 
-Returns a total minted amount of given `asset`
-
-## Name
-
+#### Name
+```rust
 pub async fn name(&self, asset: &AssetId) -> anyhow::Result<CallResponse<Option<String>>>
+```
+Returns the name of the specified `asset`.
 
-Returns a `name` of given `asset`
-
-## Decimals
-
+#### Decimals
+```rust
 pub async fn decimals(&self, asset: &AssetId) -> anyhow::Result<CallResponse<Option<u8>>>
+```
+Returns the number of decimals for the specified `asset`.
 
-Returns a `decimals` of given `asset`
-
-## Get asset
-
+#### Get Asset by Name
+```rust
 pub async fn asset_get(&self, name: &String) -> anyhow::Result<CallResponse<Option<AssetId>>>
+```
+Returns the `AssetId` of an asset based on its `name`.
 
-Returns AssetId by `name`
+---
 
+## CLI Core Functions
 
-## Name
+These contract calls change the state of the market contract and require a funded wallet.
 
-pub async fn name(&self, asset: &AssetId) -> anyhow::Result<CallResponse<Option<u8>>>
-
-Returns a `name` of given `asset`
-
-
-
-
-# CLI Core functions
-
-These contract calls change the state of the market contract so they require the wallet to have enough funds to make a call
-
-Run from project root folder
-
-## Deploy
-
+### Deploy
+To deploy the MultiAsset contract, run the following command from the project root:
+```bash
 ./target/release/multiasset_sdk core deploy --rpc "testnet.fuel.network"
-
-Sample output:
-
+```
+Example output:
+```
 MultiAsset contract deployed to: 0xdc527289bdef8ec452f350c9b2d36d464a9ebed88eb389615e512a78e26e3509
 Deployment cost: 24112
 Deployer: 0xf47e0ef744ac8c993550e03d17f1c4844494553a12cac11ab8c568c8999fdbbf
+```
 
-## AssetNew
-
+### Create a New Asset
+```bash
 ./target/release/multiasset_sdk core asset-new \
     --name USDC \
     --symbol USDC \
     --decimals 6 \
     --contract-id 0xdc527289bdef8ec452f350c9b2d36d464a9ebed88eb389615e512a78e26e3509 \
     --rpc "testnet.fuel.network"
-
-Sample output:
-
+```
+Example output:
+```
 A new asset created with id: 0x336b7c06352a4b736ff6f688ba6885788b3df16e136e95310ade51aa32dc6f05
 Transaction cost: 5216
 Creator: 0xf47e0ef744ac8c993550e03d17f1c4844494553a12cac11ab8c568c8999fdbbf
+```
 
-./target/release/multiasset_sdk core asset-new \
-    --name BTC \
-    --symbol BTC \
-    --decimals 8 \
-    --contract-id 0xdc527289bdef8ec452f350c9b2d36d464a9ebed88eb389615e512a78e26e3509 \
-    --rpc "testnet.fuel.network"
-
-Sample output:
-
-A new asset created with id: 0x38e4ca985b22625fff93205e997bfc5cc8453a953da638ad297ca60a9f2600bc
-Transaction cost: 5210
-Creator: 0xf47e0ef744ac8c993550e03d17f1c4844494553a12cac11ab8c568c8999fdbbf
-
-## Mint
-
+### Mint Tokens
+```bash
 ./target/release/multiasset_sdk core mint \
     --recipient-id 0xf47e0ef744ac8c993550e03d17f1c4844494553a12cac11ab8c568c8999fdbbf \
     --recipient-type address \
@@ -140,33 +118,38 @@ Creator: 0xf47e0ef744ac8c993550e03d17f1c4844494553a12cac11ab8c568c8999fdbbf
     --amount 200000000 \
     --contract-id 0xdc527289bdef8ec452f350c9b2d36d464a9ebed88eb389615e512a78e26e3509 \
     --rpc "testnet.fuel.network"
-
-Sample output:
-
-An asset 0x336b7c06352a4b736ff6f688ba6885788b3df16e136e95310ade51aa32dc6f05 amount minted 2000000 to: 0xf47e0ef744ac8c993550e03d17f1c4844494553a12cac11ab8c568c8999fdbbf
+```
+Example output:
+```
+An asset 0x336b7c06352a4b736ff6f688ba6885788b3df16e136e95310ade51aa32dc6f05 amount minted 200000000 to: 0xf47e0ef744ac8c993550e03d17f1c4844494553a12cac11ab8c568c8999fdbbf
 Transaction cost: 2164
 Minter: 0xf47e0ef744ac8c993550e03d17f1c4844494553a12cac11ab8c568c8999fdbbf
+```
 
+---
 
-# CLI Info Commands
+## CLI Info Commands
 
-## Name
-
+### Retrieve Asset Name
+```bash
 ./target/release/multiasset_sdk info name \
     --asset 0x336b7c06352a4b736ff6f688ba6885788b3df16e136e95310ade51aa32dc6f05 \
     --contract-id 0xdc527289bdef8ec452f350c9b2d36d464a9ebed88eb389615e512a78e26e3509 \
     --rpc "testnet.fuel.network"
+```
 
-## Symbol
-
+### Retrieve Asset Symbol
+```bash
 ./target/release/multiasset_sdk info symbol \
     --asset 0x336b7c06352a4b736ff6f688ba6885788b3df16e136e95310ade51aa32dc6f05 \
     --contract-id 0xdc527289bdef8ec452f350c9b2d36d464a9ebed88eb389615e512a78e26e3509 \
     --rpc "testnet.fuel.network"
+```
 
-## Decimals
-
+### Retrieve Asset Decimals
+```bash
 ./target/release/multiasset_sdk info decimals \
     --asset 0x336b7c06352a4b736ff6f688ba6885788b3df16e136e95310ade51aa32dc6f05 \
     --contract-id 0xdc527289bdef8ec452f350c9b2d36d464a9ebed88eb389615e512a78e26e3509 \
     --rpc "testnet.fuel.network"
+```
