@@ -8,6 +8,10 @@
       "concreteTypeId": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
     },
     {
+      "type": "bool",
+      "concreteTypeId": "b760f44fa5965c2474a3b471467a22c43185152129295af588b022ae50b50903"
+    },
+    {
       "type": "enum errors::AssetError",
       "concreteTypeId": "e0676030b211eb9ed3b9837fc852a3cf3b6533a31533dd3ab957e8b3f6e77dd3",
       "metadataTypeId": 1
@@ -31,6 +35,14 @@
       "type": "enum std::identity::Identity",
       "concreteTypeId": "ab7cd04e05be58e3fc15d424c2c4a57f824a2a2d97d67252440a3925ebdc1335",
       "metadataTypeId": 5
+    },
+    {
+      "type": "enum std::option::Option<bool>",
+      "concreteTypeId": "160e7964babcf172e41aa29b138f9c2ccfc416ad2368dabdbdf877ec5de5503f",
+      "metadataTypeId": 6,
+      "typeArguments": [
+        "b760f44fa5965c2474a3b471467a22c43185152129295af588b022ae50b50903"
+      ]
     },
     {
       "type": "enum std::option::Option<struct std::asset_id::AssetId>",
@@ -607,7 +619,7 @@
           "concreteTypeId": "9a7f1d3e963c10e0a4ea70a8e20a4813d1dc5682e28f74cb102ae50d32f7f98c"
         }
       ],
-      "name": "asset_get",
+      "name": "asset",
       "output": "191bf2140761b3c5ab6c43992d162bb3dc9d7f2272b2ee5f5eeea411ddedcd32",
       "attributes": [
         {
@@ -631,6 +643,10 @@
         {
           "name": "decimals",
           "concreteTypeId": "c89951a24c6ca28c13fd1cfdc646b2b656d69e61a92b91023be7eb58eb914b6b"
+        },
+        {
+          "name": "restricted_mint",
+          "concreteTypeId": "b760f44fa5965c2474a3b471467a22c43185152129295af588b022ae50b50903"
         }
       ],
       "name": "asset_new",
@@ -694,6 +710,24 @@
     {
       "inputs": [
         {
+          "name": "asset",
+          "concreteTypeId": "c0710b6731b1dd59799cf6bef33eee3b3b04a2e40e80a0724090215bbf2ca974"
+        }
+      ],
+      "name": "restricted_mint",
+      "output": "160e7964babcf172e41aa29b138f9c2ccfc416ad2368dabdbdf877ec5de5503f",
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [
+        {
           "name": "new_owner",
           "concreteTypeId": "ab7cd04e05be58e3fc15d424c2c4a57f824a2a2d97d67252440a3925ebdc1335"
         }
@@ -712,6 +746,10 @@
     }
   ],
   "loggedTypes": [
+    {
+      "logId": "4571204900286667806",
+      "concreteTypeId": "3f702ea3351c9c1ece2b84048006c8034a24cbc2bad2e740d0412b4172951d3d"
+    },
     {
       "logId": "4038555509566971562",
       "concreteTypeId": "380bd4d6b96f9eaa3a3d8db8bb9753399443715fb3fd65460cc28d6ab4d3659b"
@@ -759,10 +797,6 @@
     {
       "logId": "12361617830368813996",
       "concreteTypeId": "ab8d49ec0c44a3ac2976b0446ce663148727a910d4689489fd655216d435b9a3"
-    },
-    {
-      "logId": "4571204900286667806",
-      "concreteTypeId": "3f702ea3351c9c1ece2b84048006c8034a24cbc2bad2e740d0412b4172951d3d"
     },
     {
       "logId": "12970362301975156672",

@@ -39,6 +39,7 @@ storage {
     decimals: StorageMap<AssetId, u8> = StorageMap {},
     sub_id: StorageMap<AssetId, SubId> = StorageMap {},
     asset: StorageMap<b256, AssetId> = StorageMap {},
+    restricted_mint: StorageMap<AssetId, bool> = StorageMap {},
 }
 
 abi MultiAsset {
@@ -49,13 +50,21 @@ abi MultiAsset {
     fn transfer_ownership(new_owner: Identity);
 
     #[storage(read, write)]
-    fn asset_new(name: String, symbol: String, decimals: u8) -> AssetId;
+    fn asset_new(
+        name: String,
+        symbol: String,
+        decimals: u8,
+        restricted_mint: bool,
+    ) -> AssetId;
 
     #[storage(read, write)]
     fn mint(recipient: Identity, asset: AssetId, amount: u64);
 
     #[storage(read)]
-    fn asset_get(symbol: String) -> Option<AssetId>;
+    fn asset(symbol: String) -> Option<AssetId>;
+
+    #[storage(read)]
+    fn restricted_mint(asset: AssetId) -> Option<bool>;
 }
 
 impl SRC20 for Contract {
@@ -104,8 +113,13 @@ impl MultiAsset for Contract {
     }
 
     #[storage(read, write)]
-    fn asset_new(name: String, symbol: String, decimals: u8) -> AssetId {
-        //only_owner();
+    fn asset_new(
+        name: String,
+        symbol: String,
+        decimals: u8,
+        restricted_mint: bool,
+    ) -> AssetId {
+        only_owner();
         let sub_id = sha256((ContractId::this(), symbol));
         let asset = AssetId::new(ContractId::this(), sub_id);
         require(
@@ -133,6 +147,7 @@ impl MultiAsset for Contract {
         storage.total_supply.insert(asset, 0);
         storage.sub_id.insert(asset, sub_id);
         storage.asset.insert(sha256(symbol), asset);
+        storage.restricted_mint.insert(asset, restricted_mint);
 
         let creator = msg_sender().unwrap();
         log(AssetNew {
@@ -147,7 +162,6 @@ impl MultiAsset for Contract {
 
     #[storage(read, write)]
     fn mint(recipient: Identity, asset: AssetId, amount: u64) {
-        //only_owner();
         let sub_id = storage.sub_id.get(asset).try_read();
         require(amount > 0, ValueError::ZeroValue);
         require(sub_id.is_some(), AssetError::AssetNotFound(asset));
@@ -163,6 +177,9 @@ impl MultiAsset for Contract {
                 amount,
             ) == asset,
         );
+        if storage.restricted_mint.get(asset).read() {
+            only_owner();
+        }
         let minter = msg_sender().unwrap();
         log(AssetMinted {
             recipient,
@@ -173,7 +190,12 @@ impl MultiAsset for Contract {
     }
 
     #[storage(read)]
-    fn asset_get(symbol: String) -> Option<AssetId> {
+    fn asset(symbol: String) -> Option<AssetId> {
         storage.asset.get(sha256(symbol)).try_read()
+    }
+
+    #[storage(read)]
+    fn restricted_mint(asset: AssetId) -> Option<bool> {
+        storage.restricted_mint.get(asset).try_read()
     }
 }

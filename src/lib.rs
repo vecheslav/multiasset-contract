@@ -100,11 +100,12 @@ impl MultiAssetContract {
         name: &String,
         symbol: &String,
         decimals: u8,
+        restricted_mint: bool,
     ) -> anyhow::Result<CallResponse<AssetId>> {
         Ok(self
             .instance
             .methods()
-            .asset_new(name.clone(), symbol.clone(), decimals)
+            .asset_new(name.clone(), symbol.clone(), decimals, restricted_mint)
             .call()
             .await?)
     }
@@ -154,11 +155,18 @@ impl MultiAssetContract {
             .await?)
     }
 
-    pub async fn asset_get(&self, name: &String) -> anyhow::Result<CallResponse<Option<AssetId>>> {
+    pub async fn asset(&self, name: &String) -> anyhow::Result<CallResponse<Option<AssetId>>> {
+        Ok(self.instance.methods().asset(name.clone()).call().await?)
+    }
+
+    pub async fn restricted_mint(
+        &self,
+        asset: &AssetId,
+    ) -> anyhow::Result<CallResponse<Option<bool>>> {
         Ok(self
             .instance
             .methods()
-            .asset_get(name.clone())
+            .restricted_mint(asset.clone())
             .call()
             .await?)
     }

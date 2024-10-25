@@ -17,7 +17,7 @@ mod success {
         contract
             .with_account(&owner.wallet)
             .await?
-            .asset_new(&name, &symbol, decimals)
+            .asset_new(&name, &symbol, decimals, false)
             .await?;
 
         let response = contract
@@ -42,7 +42,7 @@ mod success {
         contract
             .with_account(&user.wallet)
             .await?
-            .asset_new(&name, &symbol, decimals)
+            .asset_new(&name, &symbol, decimals, false)
             .await?;
 
         Ok(())
@@ -66,7 +66,7 @@ mod revert {
             .with_account(&owner.wallet)
             .await
             .unwrap()
-            .asset_new(&name, &symbol, decimals)
+            .asset_new(&name, &symbol, decimals, false)
             .await
             .unwrap();
 
@@ -92,7 +92,7 @@ mod revert {
             .with_account(&owner.wallet)
             .await
             .unwrap()
-            .asset_new(&name, &symbol, decimals)
+            .asset_new(&name, &symbol, decimals, false)
             .await
             .unwrap();
 
@@ -108,7 +108,7 @@ mod revert {
             .with_account(&owner.wallet)
             .await
             .unwrap()
-            .asset_new(&name, &symbol, decimals)
+            .asset_new(&name, &symbol, decimals, true)
             .await
             .unwrap();
     }

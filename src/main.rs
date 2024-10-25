@@ -24,6 +24,7 @@ async fn main() -> anyhow::Result<()> {
         Command::Info(args) => match args.commands {
             InfoCommands::Decimals(args) => args.run().await,
             InfoCommands::Name(args) => args.run().await,
+            InfoCommands::RestrictedMint(args) => args.run().await,
             InfoCommands::Symbol(args) => args.run().await,
         },
     }

@@ -21,6 +21,11 @@ pub(crate) struct AssetNewCommand {
     #[clap(long)]
     pub(crate) decimals: u8,
 
+    /// The True if only owner can mint
+    /// Ex. true
+    #[clap(long)]
+    pub(crate) restricted_mint: bool,
+
     /// The contract id of the market
     #[clap(long)]
     pub(crate) contract_id: String,
@@ -46,7 +51,12 @@ impl AssetNewCommand {
 
         // Create a new asset
         let asset = contract
-            .asset_new(&self.name, &self.symbol, self.decimals)
+            .asset_new(
+                &self.name,
+                &self.symbol,
+                self.decimals,
+                self.restricted_mint,
+            )
             .await?
             .value;
 

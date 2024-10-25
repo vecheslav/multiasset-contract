@@ -124,6 +124,7 @@ Creator: 0xf47e0ef744ac8c993550e03d17f1c4844494553a12cac11ab8c568c8999fdbbf
     --name TESTUSDC \
     --symbol tUSDC \
     --decimals 6 \
+    --restricted-mint \
     --contract-id 0x8672a6eedf79ac029f6ae37a5138bc2542c332b008ca786c80b0de9513395f8a \
     --rpc "mainnet.fuel.network"
 ```
@@ -186,7 +187,7 @@ Minter: 0xf47e0ef744ac8c993550e03d17f1c4844494553a12cac11ab8c568c8999fdbbf
     --recipient-id 0x1ef9ec55122609502d923f8a7831f50ac05e02bdd640522a2ef18fd0f26d5fc7 \
     --recipient-type address \
     --asset 0xf169e13e98ae8908199148380684894458b7916f074b85ebad2aaad489ce0d54 \
-    --amount 200000000 \
+    --amount 20000000000 \
     --contract-id 0x8672a6eedf79ac029f6ae37a5138bc2542c332b008ca786c80b0de9513395f8a \
     --rpc "mainnet.fuel.network"
 ```
@@ -255,8 +256,19 @@ Minter: 0x1ef9ec55122609502d923f8a7831f50ac05e02bdd640522a2ef18fd0f26d5fc7
     --rpc "testnet.fuel.network"
 ```
 
+```bash
 ./target/release/multiasset_sdk info decimals \
     --asset 0x22dfb618b9fc621a7d53f0f599dd427fb5688e280062a8de8883a27819d3f276 \
     --contract-id 0x8672a6eedf79ac029f6ae37a5138bc2542c332b008ca786c80b0de9513395f8a \
     --rpc "mainnet.fuel.network"
+```
+
+
+### Retrieve Restrcited Mint
+```bash
+./target/release/multiasset_sdk info restricted-mint \
+    --asset 0x8e52df1b468b021d2d9ff24b77d9f87e54977c185f720ef9036d8678efbe24d5 \
+    --contract-id 0xa57ec1ec4fe547face6c68c9f90bf96a1f805af8bd04747994b5b2aea4835f82 \
+    --rpc "testnet.fuel.network"
+```
 

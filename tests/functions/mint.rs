@@ -22,7 +22,7 @@ mod success {
         let asset = contract
             .with_account(&minter.wallet)
             .await?
-            .asset_new(&name, &symbol, decimals)
+            .asset_new(&name, &symbol, decimals, false)
             .await?
             .value;
 
@@ -68,8 +68,8 @@ mod revert {
 
     use super::*;
 
-    //#[tokio::test]
-    //#[should_panic(expected = "NotOwner")]
+    #[tokio::test]
+    #[should_panic(expected = "NotOwner")]
     async fn mint_not_owner() {
         let (contract, minter, user) = setup().await.unwrap();
 
@@ -77,11 +77,11 @@ mod revert {
         let symbol = String::from("BTC");
         let decimals = 8;
 
-        contract
+        let asset = contract
             .with_account(&minter.wallet)
             .await
             .unwrap()
-            .asset_new(&name, &symbol, decimals)
+            .asset_new(&name, &symbol, decimals, true)
             .await
             .unwrap()
             .value;
@@ -93,7 +93,7 @@ mod revert {
             .with_account(&user.wallet)
             .await
             .unwrap()
-            .mint(recipient, &AssetId::zeroed(), amount)
+            .mint(recipient, &asset, amount)
             .await
             .unwrap();
     }
@@ -111,7 +111,7 @@ mod revert {
             .with_account(&minter.wallet)
             .await
             .unwrap()
-            .asset_new(&name, &symbol, decimals)
+            .asset_new(&name, &symbol, decimals, false)
             .await
             .unwrap()
             .value;
@@ -143,7 +143,7 @@ mod revert {
             .with_account(&minter.wallet)
             .await
             .unwrap()
-            .asset_new(&name, &symbol, decimals)
+            .asset_new(&name, &symbol, decimals, false)
             .await
             .unwrap()
             .value;
