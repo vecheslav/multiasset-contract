@@ -16,13 +16,11 @@ mod success {
 
         contract
             .with_account(&owner.wallet)
-            .await?
             .asset_new(&name, &symbol, decimals, false)
             .await?;
 
         let response = contract
             .with_account(&owner.wallet)
-            .await?
             .transfer_ownership(user.wallet.address().into())
             .await?;
 
@@ -41,7 +39,6 @@ mod success {
         let symbol = String::from("BTC_II");
         contract
             .with_account(&user.wallet)
-            .await?
             .asset_new(&name, &symbol, decimals, false)
             .await?;
 
@@ -64,16 +61,12 @@ mod revert {
 
         contract
             .with_account(&owner.wallet)
-            .await
-            .unwrap()
             .asset_new(&name, &symbol, decimals, false)
             .await
             .unwrap();
 
         contract
             .with_account(&user.wallet)
-            .await
-            .unwrap()
             .transfer_ownership(user.wallet.address().into())
             .await
             .unwrap();
@@ -90,24 +83,18 @@ mod revert {
 
         contract
             .with_account(&owner.wallet)
-            .await
-            .unwrap()
             .asset_new(&name, &symbol, decimals, false)
             .await
             .unwrap();
 
         contract
             .with_account(&user.wallet)
-            .await
-            .unwrap()
             .transfer_ownership(user.wallet.address().into())
             .await
             .unwrap();
 
         contract
             .with_account(&owner.wallet)
-            .await
-            .unwrap()
             .asset_new(&name, &symbol, decimals, true)
             .await
             .unwrap();

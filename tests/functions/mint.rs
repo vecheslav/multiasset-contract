@@ -21,7 +21,6 @@ mod success {
 
         let asset = contract
             .with_account(&minter.wallet)
-            .await?
             .asset_new(&name, &symbol, decimals, false)
             .await?
             .value;
@@ -33,7 +32,6 @@ mod success {
 
         let response = contract
             .with_account(&minter.wallet)
-            .await?
             .mint(recipient, &asset, amount)
             .await?;
 
@@ -53,7 +51,6 @@ mod success {
 
         contract
             .with_account(&minter.wallet)
-            .await?
             .mint(recipient, &asset, amount)
             .await?;
 
@@ -79,8 +76,6 @@ mod revert {
 
         let asset = contract
             .with_account(&minter.wallet)
-            .await
-            .unwrap()
             .asset_new(&name, &symbol, decimals, true)
             .await
             .unwrap()
@@ -91,8 +86,6 @@ mod revert {
 
         contract
             .with_account(&user.wallet)
-            .await
-            .unwrap()
             .mint(recipient, &asset, amount)
             .await
             .unwrap();
@@ -109,8 +102,6 @@ mod revert {
 
         let asset = contract
             .with_account(&minter.wallet)
-            .await
-            .unwrap()
             .asset_new(&name, &symbol, decimals, false)
             .await
             .unwrap()
@@ -123,8 +114,6 @@ mod revert {
 
         contract
             .with_account(&minter.wallet)
-            .await
-            .unwrap()
             .mint(recipient, &asset, amount)
             .await
             .unwrap();
@@ -141,8 +130,6 @@ mod revert {
 
         contract
             .with_account(&minter.wallet)
-            .await
-            .unwrap()
             .asset_new(&name, &symbol, decimals, false)
             .await
             .unwrap()
@@ -153,8 +140,6 @@ mod revert {
 
         contract
             .with_account(&minter.wallet)
-            .await
-            .unwrap()
             .mint(recipient, &AssetId::zeroed(), amount)
             .await
             .unwrap();

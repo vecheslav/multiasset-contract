@@ -103,13 +103,21 @@ Deployment cost: 2269
 Deployer: 0x1ef9ec55122609502d923f8a7831f50ac05e02bdd640522a2ef18fd0f26d5fc7
 ```
 
+Update
+```
+MultiAsset contract deployed to: 0xe957f456070eccec99ad0378bafb13c7c019d4a3299589f7fc059c2564a0d60c
+Deployment cost: 2554
+Deployer: 0x1ef9ec55122609502d923f8a7831f50ac05e02bdd640522a2ef18fd0f26d5fc7
+```
+
 ### Create a New Asset
 ```bash
 ./target/release/multiasset_sdk core asset-new \
     --name USDC \
     --symbol USDC \
     --decimals 6 \
-    --contract-id 0xdc527289bdef8ec452f350c9b2d36d464a9ebed88eb389615e512a78e26e3509 \
+    --restricted-mint \
+    --contract-id 0x1ef9ec55122609502d923f8a7831f50ac05e02bdd640522a2ef18fd0f26d5fc7 \
     --rpc "testnet.fuel.network"
 ```
 Example output:
@@ -165,6 +173,34 @@ Transaction cost: 225
 Creator: 0x1ef9ec55122609502d923f8a7831f50ac05e02bdd640522a2ef18fd0f26d5fc7
 ```
 
+```bash
+./target/release/multiasset_sdk core asset-new \
+    --name Trump \
+    --symbol TRMP \
+    --decimals 9 \
+    --restricted-mint \
+    --contract-id 0xe957f456070eccec99ad0378bafb13c7c019d4a3299589f7fc059c2564a0d60c \
+    --rpc "mainnet.fuel.network"
+```
+
+A new asset created with id: 0x0b2d808a898cdae8b8661d398a98f8ff45e1e0f536ba2e498f6c7e53a71932cd
+Transaction cost: 245
+Creator: 0x1ef9ec55122609502d923f8a7831f50ac05e02bdd640522a2ef18fd0f26d5fc7
+
+```bash
+./target/release/multiasset_sdk core asset-new \
+    --name Kamala \
+    --symbol KMLA \
+    --decimals 9 \
+    --restricted-mint \
+    --contract-id 0xe957f456070eccec99ad0378bafb13c7c019d4a3299589f7fc059c2564a0d60c \
+    --rpc "mainnet.fuel.network"
+```
+
+A new asset created with id: 0x368f9275e7d072794527b57d5b54688300008a400f41d926a013195e7074029c
+Transaction cost: 245
+Creator: 0x1ef9ec55122609502d923f8a7831f50ac05e02bdd640522a2ef18fd0f26d5fc7
+
 ### Mint Tokens
 ```bash
 ./target/release/multiasset_sdk core mint \
@@ -187,7 +223,7 @@ Minter: 0xf47e0ef744ac8c993550e03d17f1c4844494553a12cac11ab8c568c8999fdbbf
     --recipient-id 0x1ef9ec55122609502d923f8a7831f50ac05e02bdd640522a2ef18fd0f26d5fc7 \
     --recipient-type address \
     --asset 0xf169e13e98ae8908199148380684894458b7916f074b85ebad2aaad489ce0d54 \
-    --amount 20000000000 \
+    --amount 1000000000000000 \
     --contract-id 0x8672a6eedf79ac029f6ae37a5138bc2542c332b008ca786c80b0de9513395f8a \
     --rpc "mainnet.fuel.network"
 ```
@@ -203,20 +239,62 @@ Minter: 0x1ef9ec55122609502d923f8a7831f50ac05e02bdd640522a2ef18fd0f26d5fc7
     --recipient-id 0x1ef9ec55122609502d923f8a7831f50ac05e02bdd640522a2ef18fd0f26d5fc7 \
     --recipient-type address \
     --asset 0x22dfb618b9fc621a7d53f0f599dd427fb5688e280062a8de8883a27819d3f276 \
-    --amount 20000000000 \
+    --amount 1000000000000 \
     --contract-id 0x8672a6eedf79ac029f6ae37a5138bc2542c332b008ca786c80b0de9513395f8a \
     --rpc "mainnet.fuel.network"
 ```
-Example output:
+
+```bash
+./target/release/multiasset_sdk core mint \
+    --recipient-id 0x1ef9ec55122609502d923f8a7831f50ac05e02bdd640522a2ef18fd0f26d5fc7 \
+    --recipient-type address \
+    --asset 0x0dc8cdbe2798cb45ebc99180afc0bc514ffb505a80f122004378955c1d23892c \
+    --amount 100000000000000 \
+    --contract-id 0x8672a6eedf79ac029f6ae37a5138bc2542c332b008ca786c80b0de9513395f8a \
+    --rpc "mainnet.fuel.network"
 ```
-An asset 0x22dfb618b9fc621a7d53f0f599dd427fb5688e280062a8de8883a27819d3f276 amount minted 20000000000 to: 0x1ef9ec55122609502d923f8a7831f50ac05e02bdd640522a2ef18fd0f26d5fc7
-Transaction cost: 111
-Minter: 0x1ef9ec55122609502d923f8a7831f50ac05e02bdd640522a2ef18fd0f26d5fc7
+
+
+```bash
+./target/release/multiasset_sdk core mint \
+    --recipient-id 0x1ef9ec55122609502d923f8a7831f50ac05e02bdd640522a2ef18fd0f26d5fc7 \
+    --recipient-type address \
+    --asset 0x0b2d808a898cdae8b8661d398a98f8ff45e1e0f536ba2e498f6c7e53a71932cd \
+    --amount 10000000000000 \
+    --contract-id 0xe957f456070eccec99ad0378bafb13c7c019d4a3299589f7fc059c2564a0d60c \
+    --rpc "mainnet.fuel.network"
+```
+
+```bash
+./target/release/multiasset_sdk core mint \
+    --recipient-id 0x1ef9ec55122609502d923f8a7831f50ac05e02bdd640522a2ef18fd0f26d5fc7 \
+    --recipient-type address \
+    --asset 0x368f9275e7d072794527b57d5b54688300008a400f41d926a013195e7074029c \
+    --amount 10000000000000 \
+    --contract-id 0xe957f456070eccec99ad0378bafb13c7c019d4a3299589f7fc059c2564a0d60c \
+    --rpc "mainnet.fuel.network"
+```
+
+```bash
+./target/release/multiasset_sdk core mint-many \
+    --recipient-id 0x1ef9ec55122609502d923f8a7831f50ac05e02bdd640522a2ef18fd0f26d5fc7 \
+   --recipient-type address \
+    --asset 0x0b2d808a898cdae8b8661d398a98f8ff45e1e0f536ba2e498f6c7e53a71932cd \
+    --amount 10000000000000 \
+    --contract-id 0xe957f456070eccec99ad0378bafb13c7c019d4a3299589f7fc059c2564a0d60c \
+    --rpc "mainnet.fuel.network"
 ```
 
 ---
 
 ## CLI Info Commands
+
+### Retrieve Asset number
+```bash
+./target/release/multiasset_sdk info total-assets \
+    --contract-id 0xe957f456070eccec99ad0378bafb13c7c019d4a3299589f7fc059c2564a0d60c \
+    --rpc "mainnet.fuel.network"
+```
 
 ### Retrieve Asset Name
 ```bash
@@ -263,12 +341,21 @@ Minter: 0x1ef9ec55122609502d923f8a7831f50ac05e02bdd640522a2ef18fd0f26d5fc7
     --rpc "mainnet.fuel.network"
 ```
 
+### Retrieve Asset Total Supply
+```bash
+./target/release/multiasset_sdk info total-supply \
+    --asset 0x368f9275e7d072794527b57d5b54688300008a400f41d926a013195e7074029c \
+    --contract-id 0xe957f456070eccec99ad0378bafb13c7c019d4a3299589f7fc059c2564a0d60c \
+    --rpc "mainnet.fuel.network"
+```
+
+4340000
 
 ### Retrieve Restrcited Mint
 ```bash
 ./target/release/multiasset_sdk info restricted-mint \
-    --asset 0x8e52df1b468b021d2d9ff24b77d9f87e54977c185f720ef9036d8678efbe24d5 \
-    --contract-id 0xa57ec1ec4fe547face6c68c9f90bf96a1f805af8bd04747994b5b2aea4835f82 \
-    --rpc "testnet.fuel.network"
+    --asset 0x368f9275e7d072794527b57d5b54688300008a400f41d926a013195e7074029c \
+    --contract-id 0xe957f456070eccec99ad0378bafb13c7c019d4a3299589f7fc059c2564a0d60c \
+    --rpc "mainnet.fuel.network"
 ```
 

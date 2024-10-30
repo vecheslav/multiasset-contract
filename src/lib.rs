@@ -4,7 +4,7 @@ use fuels::{
         abigen, Contract, LoadConfiguration, StorageConfiguration, TxPolicies,
         VariableOutputPolicy, WalletUnlocked,
     },
-    programs::responses::CallResponse,
+    programs::{calls::Execution, responses::CallResponse},
 };
 
 use rand::Rng;
@@ -60,10 +60,10 @@ impl MultiAssetContract {
         }
     }
 
-    pub async fn with_account(&self, account: &WalletUnlocked) -> anyhow::Result<Self> {
-        Ok(Self {
+    pub fn with_account(&self, account: &WalletUnlocked) -> Self {
+        Self {
             instance: self.instance.clone().with_account(account.clone()),
-        })
+        }
     }
 
     pub fn id(&self) -> Bytes32 {
@@ -126,7 +126,12 @@ impl MultiAssetContract {
     }
 
     pub async fn total_assets(&self) -> anyhow::Result<CallResponse<u64>> {
-        Ok(self.instance.methods().total_assets().call().await?)
+        Ok(self
+            .instance
+            .methods()
+            .total_assets()
+            .simulate(Execution::StateReadOnly)
+            .await?)
     }
 
     pub async fn total_supply(&self, asset: &AssetId) -> anyhow::Result<CallResponse<Option<u64>>> {
@@ -139,11 +144,21 @@ impl MultiAssetContract {
     }
 
     pub async fn name(&self, asset: &AssetId) -> anyhow::Result<CallResponse<Option<String>>> {
-        Ok(self.instance.methods().name(asset.clone()).call().await?)
+        Ok(self
+            .instance
+            .methods()
+            .name(asset.clone())
+            .simulate(Execution::StateReadOnly)
+            .await?)
     }
 
     pub async fn symbol(&self, asset: &AssetId) -> anyhow::Result<CallResponse<Option<String>>> {
-        Ok(self.instance.methods().symbol(asset.clone()).call().await?)
+        Ok(self
+            .instance
+            .methods()
+            .symbol(asset.clone())
+            .simulate(Execution::StateReadOnly)
+            .await?)
     }
 
     pub async fn decimals(&self, asset: &AssetId) -> anyhow::Result<CallResponse<Option<u8>>> {
@@ -151,12 +166,17 @@ impl MultiAssetContract {
             .instance
             .methods()
             .decimals(asset.clone())
-            .call()
+            .simulate(Execution::StateReadOnly)
             .await?)
     }
 
     pub async fn asset(&self, name: &String) -> anyhow::Result<CallResponse<Option<AssetId>>> {
-        Ok(self.instance.methods().asset(name.clone()).call().await?)
+        Ok(self
+            .instance
+            .methods()
+            .asset(name.clone())
+            .simulate(Execution::StateReadOnly)
+            .await?)
     }
 
     pub async fn restricted_mint(
@@ -167,7 +187,7 @@ impl MultiAssetContract {
             .instance
             .methods()
             .restricted_mint(asset.clone())
-            .call()
+            .simulate(Execution::StateReadOnly)
             .await?)
     }
 }

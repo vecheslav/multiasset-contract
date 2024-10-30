@@ -28,6 +28,8 @@ async fn main() -> anyhow::Result<()> {
             InfoCommands::Name(args) => args.run().await,
             InfoCommands::RestrictedMint(args) => args.run().await,
             InfoCommands::Symbol(args) => args.run().await,
+            InfoCommands::TotalAssets(args) => args.run().await,
+            InfoCommands::TotalSupply(args) => args.run().await,
         },
     }
 }
